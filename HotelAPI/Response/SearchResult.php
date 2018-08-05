@@ -8,6 +8,8 @@
 
 namespace HotelApi\Response;
 
+use Exception;
+
 class SearchResult extends BaseObject
 {
     /**
@@ -23,7 +25,7 @@ class SearchResult extends BaseObject
     /**
      * SearchResult constructor.
      * @param $object
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct($object)
     {

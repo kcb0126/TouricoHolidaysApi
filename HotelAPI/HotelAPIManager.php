@@ -13,15 +13,19 @@ require_once('Request/BaseArray.php');
 
 require_once('Request/ArrayOfChildAge.php');
 require_once('Request/ArrayOfFeature.php');
+require_once('Request/ArrayOfHotelIdInfo.php');
 require_once('Request/ArrayOfRoomInfo.php');
 require_once('Request/ChildAge.php');
 require_once('Request/Feature.php');
+require_once('Request/HotelIdInfo.php');
 require_once('Request/RoomInfo.php');
 require_once('Request/SearchHotels.php');
+require_once('Request/SearchHotelsById.php');
+require_once('Request/SearchHotelsByIdRequest.php');
 require_once('Request/SearchRequest.php');
 
 require_once('Response/BaseArray.php');
-require_once('Response/BaseObject.php');
+ require_once('Response/BaseObject.php');
 
 require_once('Response/ArrayOfAvailability.php');
 require_once('Response/ArrayOfBoardbase.php');
@@ -42,6 +46,7 @@ require_once('Response/Price.php');
 require_once('Response/Promotion.php');
 require_once('Response/Room.php');
 require_once('Response/RoomType.php');
+require_once('Response/SearchHotelsByIdResponse.php');
 require_once('Response/SearchHotelsResponse.php');
 require_once('Response/SearchResult.php');
 require_once('Response/Supplement.php');
@@ -53,11 +58,15 @@ use SoapHeader;
 
 use HotelApi\Request\ArrayOfChildAge;
 use HotelApi\Request\ArrayOfFeature;
+use HotelApi\Request\ArrayOfHotelIdInfo;
 use HotelApi\Request\ArrayOfRoomInfo;
 use HotelApi\Request\ChildAge;
 use HotelApi\Request\Feature;
+use HotelApi\Request\HotelIdInfo;
 use HotelApi\Request\RoomInfo;
 use HotelApi\Request\SearchHotels;
+use HotelApi\Request\SearchHotelsById;
+use HotelApi\Request\SearchHotelsByIdRequest;
 use HotelApi\Request\SearchRequest;
 
 use HotelApi\Response\ArrayOfAvailability;
@@ -79,6 +88,7 @@ use HotelApi\Response\Price;
 use HotelApi\Response\Promotion;
 use HotelApi\Response\Room;
 use HotelApi\Response\RoomType;
+use HotelApi\Response\SearchHotelsByIdResponse;
 use HotelApi\Response\SearchHotelsResponse;
 use HotelApi\Response\SearchResult;
 use HotelApi\Response\Supplement;
@@ -87,8 +97,6 @@ use HotelApi\Response\Tax;
 class HotelAPIManager
 {
     const WSDL = 'http://demo-hotelws.touricoholidays.com/HotelFlow.svc?wsdl';
-
-    const VERSION = '5';
 
     const CLIENT_NAMESPACE = 'http://schemas.tourico.com/webservices/hotelv3';
 
@@ -104,8 +112,9 @@ class HotelAPIManager
      * @param string $LoginName
      * @param string $Password
      * @param string $Culture
+     * @param int $Version
      */
-    public function __construct($LoginName, $Password, $Culture = 'en_US')
+    public function __construct($LoginName, $Password, $Culture = 'en_US', $Version = 5)
     {
         $this->soapClient = new SoapClient(self::WSDL, array('uri' => self::CLIENT_NAMESPACE));
 
@@ -113,16 +122,12 @@ class HotelAPIManager
             'LoginName' => $LoginName,
             'Password' => $Password,
             'Culture' => $Culture,
-            'Version' => self::VERSION
+            'Version' => $Version
         );
 
         $authHeader = new SoapHeader(self::AUTH_NAMESPACE, 'AuthenticationHeader', $authBody);
 
         $this->soapClient->__setSoapHeaders($authHeader);
-
-//        // debug
-//        var_dump($this->soapClient->__getFunctions());
-//        var_dump($this->soapClient->__getTypes());
     }
 
     /**
@@ -130,14 +135,30 @@ class HotelAPIManager
      * @return SearchHotelsResponse
      * @throws Exception
      */
-    public function SearchHotels($SearchHotels) {
+    public function SearchHotels(SearchHotels $SearchHotels) {
         $object = $this->soapClient->__soapCall(
             'SearchHotels',
-            array('SearchHotels' => $SearchHotels->toArray())
+            array($SearchHotels->toArray())
         );
 
         $searchHotelsResponse = new SearchHotelsResponse($object);
 
         return $searchHotelsResponse;
+    }
+
+    /**
+     * @param SearchHotelsById $SearchHotelsById
+     * @return SearchHotelsByIdResponse
+     * @throws Exception
+     */
+    public function SearchHotelsById(SearchHotelsById $SearchHotelsById) {
+        $object = $this->soapClient->__soapCall(
+            'SearchHotelsById',
+            array($SearchHotelsById->toArray())
+        );
+
+        $searchHotelsByIdResponse = new SearchHotelsByIdResponse($object);
+
+        return $searchHotelsByIdResponse;
     }
 }

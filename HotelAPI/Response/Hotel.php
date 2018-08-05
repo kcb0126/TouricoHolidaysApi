@@ -8,6 +8,8 @@
 
 namespace HotelApi\Response;
 
+use Exception;
+
 class Hotel extends BaseObject
 {
     /**
@@ -100,6 +102,11 @@ class Hotel extends BaseObject
      */
     public $desc = '';
 
+    /**
+     * Hotel constructor.
+     * @param $object
+     * @throws Exception
+     */
     public function __construct($object)
     {
         $this->Location = new HotelLocation(null);

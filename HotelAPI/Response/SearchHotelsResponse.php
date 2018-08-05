@@ -8,6 +8,8 @@
 
 namespace HotelApi\Response;
 
+use Exception;
+
 class SearchHotelsResponse extends BaseObject
 {
     /**
@@ -15,6 +17,11 @@ class SearchHotelsResponse extends BaseObject
      */
     public $SearchHotelsResult;
 
+    /**
+     * SearchHotelsResponse constructor.
+     * @param $object
+     * @throws Exception
+     */
     public function __construct($object)
     {
         $this->SearchHotelsResult = new SearchResult(null);
