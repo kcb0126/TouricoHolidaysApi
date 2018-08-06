@@ -12,20 +12,24 @@ require_once('Request/BaseObject.php');
 require_once('Request/BaseArray.php');
 
 require_once('Request/ArrayOfChildAge.php');
+require_once('Request/ArrayOfDestinationIdInfo.php');
 require_once('Request/ArrayOfFeature.php');
 require_once('Request/ArrayOfHotelIdInfo.php');
 require_once('Request/ArrayOfRoomInfo.php');
 require_once('Request/ChildAge.php');
+require_once('Request/DestinationIdInfo.php');
 require_once('Request/Feature.php');
 require_once('Request/HotelIdInfo.php');
 require_once('Request/RoomInfo.php');
 require_once('Request/SearchHotels.php');
+require_once('Request/SearchHotelsByDestinationIds.php');
+require_once('Request/SearchHotelsByDestinationIdsRequest.php');
 require_once('Request/SearchHotelsById.php');
 require_once('Request/SearchHotelsByIdRequest.php');
 require_once('Request/SearchRequest.php');
 
 require_once('Response/BaseArray.php');
- require_once('Response/BaseObject.php');
+require_once('Response/BaseObject.php');
 
 require_once('Response/ArrayOfAvailability.php');
 require_once('Response/ArrayOfBoardbase.php');
@@ -46,6 +50,7 @@ require_once('Response/Price.php');
 require_once('Response/Promotion.php');
 require_once('Response/Room.php');
 require_once('Response/RoomType.php');
+require_once('Response/SearchHotelsByDestinationIdsResponse.php');
 require_once('Response/SearchHotelsByIdResponse.php');
 require_once('Response/SearchHotelsResponse.php');
 require_once('Response/SearchResult.php');
@@ -57,14 +62,18 @@ use SoapClient;
 use SoapHeader;
 
 use HotelApi\Request\ArrayOfChildAge;
+use HotelApi\Request\ArrayOfDestinationIdInfo;
 use HotelApi\Request\ArrayOfFeature;
 use HotelApi\Request\ArrayOfHotelIdInfo;
 use HotelApi\Request\ArrayOfRoomInfo;
 use HotelApi\Request\ChildAge;
+use HotelApi\Request\DestinationIdInfo;
 use HotelApi\Request\Feature;
 use HotelApi\Request\HotelIdInfo;
 use HotelApi\Request\RoomInfo;
 use HotelApi\Request\SearchHotels;
+use HotelApi\Request\SearchHotelsByDestinationIds;
+use HotelApi\Request\SearchHotelsByDestinationIdsRequest;
 use HotelApi\Request\SearchHotelsById;
 use HotelApi\Request\SearchHotelsByIdRequest;
 use HotelApi\Request\SearchRequest;
@@ -88,6 +97,7 @@ use HotelApi\Response\Price;
 use HotelApi\Response\Promotion;
 use HotelApi\Response\Room;
 use HotelApi\Response\RoomType;
+use HotelApi\Response\SearchHotelsByDestinationIdsResponse;
 use HotelApi\Response\SearchHotelsByIdResponse;
 use HotelApi\Response\SearchHotelsResponse;
 use HotelApi\Response\SearchResult;
@@ -160,5 +170,21 @@ class HotelAPIManager
         $searchHotelsByIdResponse = new SearchHotelsByIdResponse($object);
 
         return $searchHotelsByIdResponse;
+    }
+
+    /**
+     * @param SearchHotelsByDestinationIds $SearchHotelsByDestinationIds
+     * @return SearchHotelsByDestinationIdsResponse
+     * @throws Exception
+     */
+    public function SearchHotelsByDestinationIds(SearchHotelsByDestinationIds $SearchHotelsByDestinationIds) {
+        $object = $this->soapClient->__soapCall(
+            'SearchHotelsByDestinationIds',
+            array($SearchHotelsByDestinationIds->toArray())
+        );
+
+        $searchHotelsByDestinationIdsResponse = new SearchHotelsByDestinationIdsResponse($object);
+
+        return $searchHotelsByDestinationIdsResponse;
     }
 }
