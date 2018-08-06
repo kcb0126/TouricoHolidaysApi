@@ -28,12 +28,4 @@ class SearchHotelsResponse extends BaseObject
 
         parent::__construct($object);
     }
-
-    /**
-     * @param $object
-     * @return SearchHotelsResponse
-     */
-    public static function parse($object) {
-        return $object;
-    }
 }
