@@ -93,7 +93,7 @@ class Hotel extends BaseObject
     public $minAverPrice = 0.0;
 
     /**
-     * @var int
+     * @var float
      */
     public $starsLevel = 0;
 

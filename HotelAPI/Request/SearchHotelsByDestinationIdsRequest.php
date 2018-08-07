@@ -37,7 +37,7 @@ class SearchHotelsByDestinationIdsRequest extends BaseObject
     public $MaxPrice;
 
     /**
-     * @var int
+     * @var float
      */
     public $StarLevel;
 
@@ -63,7 +63,7 @@ class SearchHotelsByDestinationIdsRequest extends BaseObject
      * @param string $CheckOut
      * @param ArrayOfRoomInfo $RoomsInformation
      * @param float $MaxPrice
-     * @param int $StarLevel
+     * @param float $StarLevel
      * @param bool $AvailableOnly
      * @param string $PropertyType
      * @param bool $ExactDestination
@@ -74,7 +74,7 @@ class SearchHotelsByDestinationIdsRequest extends BaseObject
         , string $CheckOut
         , ArrayOfRoomInfo $RoomsInformation
         , float $MaxPrice
-        , int $StarLevel
+        , float $StarLevel
         , bool $AvailableOnly
         , string $PropertyType
         , bool $ExactDestination

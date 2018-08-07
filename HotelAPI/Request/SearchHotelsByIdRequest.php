@@ -37,7 +37,7 @@ class SearchHotelsByIdRequest extends BaseObject
     public $MaxPrice;
 
     /**
-     * @var int
+     * @var float
      */
     public $StarLevel;
 
@@ -53,7 +53,7 @@ class SearchHotelsByIdRequest extends BaseObject
      * @param string $CheckOut
      * @param ArrayOfRoomInfo $RoomsInformation
      * @param float $MaxPrice
-     * @param int $StarLevel
+     * @param float $StarLevel
      * @param bool $AvailableOnly
      */
     public function __construct(
@@ -62,7 +62,7 @@ class SearchHotelsByIdRequest extends BaseObject
         , string $CheckOut
         , ArrayOfRoomInfo $RoomsInformation
         , float $MaxPrice
-        , int $StarLevel
+        , float $StarLevel
         , bool $AvailableOnly
     )
     {
