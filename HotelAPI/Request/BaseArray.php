@@ -49,6 +49,6 @@ abstract class BaseArray
             $result[] = $item->toArray();
         }
 
-        return $result;
+        return array($main_array => $result);
     }
 }

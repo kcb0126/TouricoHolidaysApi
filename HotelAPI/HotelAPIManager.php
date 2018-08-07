@@ -17,20 +17,32 @@ require_once('Request/ArrayOfFeature.php');
 require_once('Request/ArrayOfHotelID.php');
 require_once('Request/ArrayOfHotelIdInfo.php');
 require_once('Request/ArrayOfRoomInfo.php');
+require_once('Request/ArrayOfRoomReserveInfo.php');
+require_once('Request/ArrayOfSuppAges.php');
+require_once('Request/ArrayOfSupplementInfo.php');
+require_once('Request/BookHotelV3.php');
+require_once('Request/BookV3Request.php');
 require_once('Request/CheckAvailabilityAndPrices.php');
 require_once('Request/ChildAge.php');
+require_once('Request/ClientCreditCardInfo.php');
+require_once('Request/ContactPassenger.php');
+require_once('Request/CyberSourceParams.php');
 require_once('Request/DestinationIdInfo.php');
 require_once('Request/Feature.php');
 require_once('Request/GetHotelDetailsV3.php');
 require_once('Request/HotelID.php');
 require_once('Request/HotelIdInfo.php');
 require_once('Request/RoomInfo.php');
+require_once('Request/RoomReserveInfo.php');
 require_once('Request/SearchHotels.php');
 require_once('Request/SearchHotelsByDestinationIds.php');
 require_once('Request/SearchHotelsByDestinationIdsRequest.php');
 require_once('Request/SearchHotelsById.php');
 require_once('Request/SearchHotelsByIdRequest.php');
 require_once('Request/SearchRequest.php');
+require_once('Request/SelectedBoardBase.php');
+require_once('Request/SuppAges.php');
+require_once('Request/SupplementInfo.php');
 
 require_once('Response/BaseArray.php');
 require_once('Response/BaseObject.php');
@@ -45,14 +57,15 @@ require_once('Response/ArrayOfImage.php');
 require_once('Response/ArrayOfMovie.php');
 require_once('Response/ArrayOfOccupancy.php');
 require_once('Response/ArrayOfOption.php');
-require_once('Response/Option.php');
 require_once('Response/ArrayOfPrice.php');
+require_once('Response/ArrayOfReservation.php');
 require_once('Response/ArrayOfRoom.php');
 require_once('Response/ArrayOfRoomType.php');
 require_once('Response/ArrayOfSupplement.php');
 require_once('Response/ArrayOfTax.php');
 require_once('Response/Availability.php');
 require_once('Response/Boardbase.php');
+require_once('Response/BookHotelV3Response.php');
 require_once('Response/BookInfo.php');
 require_once('Response/CheckAvailabilityAndPricesResponse.php');
 require_once('Response/Description.php');
@@ -75,6 +88,9 @@ require_once('Response/Option.php');
 require_once('Response/Price.php');
 require_once('Response/Promotion.php');
 require_once('Response/RefPoints.php');
+require_once('Response/Reservation.php');
+require_once('Response/ResGroup.php');
+require_once('Response/RGInfoResults.php');
 require_once('Response/Room.php');
 require_once('Response/RoomType.php');
 require_once('Response/SearchHotelsByDestinationIdsResponse.php');
@@ -97,20 +113,32 @@ use HotelApi\Request\ArrayOfFeature;
 use HotelApi\Request\ArrayOfHotelID;
 use HotelApi\Request\ArrayOfHotelIdInfo;
 use HotelApi\Request\ArrayOfRoomInfo;
+use HotelApi\Request\ArrayOfRoomReserveInfo;
+use HotelApi\Request\ArrayOfSuppAges;
+use HotelApi\Request\ArrayOfSupplementInfo;
+use HotelApi\Request\BookHotelV3;
+use HotelApi\Request\BookV3Request;
 use HotelApi\Request\CheckAvailabilityAndPrices;
 use HotelApi\Request\ChildAge;
+use HotelApi\Request\ClientCreditCardInfo;
+use HotelApi\Request\ContactPassenger;
+use HotelApi\Request\CyberSourceParams;
 use HotelApi\Request\DestinationIdInfo;
 use HotelApi\Request\Feature;
 use HotelApi\Request\GetHotelDetailsV3;
 use HotelApi\Request\HotelID;
 use HotelApi\Request\HotelIdInfo;
 use HotelApi\Request\RoomInfo;
+use HotelApi\Request\RoomReserveInfo;
 use HotelApi\Request\SearchHotels;
 use HotelApi\Request\SearchHotelsByDestinationIds;
 use HotelApi\Request\SearchHotelsByDestinationIdsRequest;
 use HotelApi\Request\SearchHotelsById;
 use HotelApi\Request\SearchHotelsByIdRequest;
 use HotelApi\Request\SearchRequest;
+use HotelApi\Request\SelectedBoardBase;
+use HotelApi\Request\SuppAges;
+use HotelApi\Request\SupplementInfo;
 
 use HotelApi\Response\Amenity;
 use HotelApi\Response\ArrayOfAmenity;
@@ -122,12 +150,14 @@ use HotelApi\Response\ArrayOfImage;
 use HotelApi\Response\ArrayOfOccupancy;
 use HotelApi\Response\ArrayOfOption;
 use HotelApi\Response\ArrayOfPrice;
+use HotelApi\Response\ArrayOfReservation;
 use HotelApi\Response\ArrayOfRoom;
 use HotelApi\Response\ArrayOfRoomType;
 use HotelApi\Response\ArrayOfSupplement;
 use HotelApi\Response\ArrayOfTax;
 use HotelApi\Response\Availability;
 use HotelApi\Response\Boardbase;
+use HotelApi\Response\BookHotelV3Response;
 use HotelApi\Response\BookInfo;
 use HotelApi\Response\CheckAvailabilityAndPricesResponse;
 use HotelApi\Response\Description;
@@ -150,6 +180,9 @@ use HotelApi\Response\Option;
 use HotelApi\Response\Price;
 use HotelApi\Response\Promotion;
 use HotelApi\Response\RefPoints;
+use HotelApi\Response\Reservation;
+use HotelApi\Response\ResGroup;
+use HotelApi\Response\RGInfoResults;
 use HotelApi\Response\Room;
 use HotelApi\Response\RoomType;
 use HotelApi\Response\SearchHotelsByDestinationIdsResponse;
@@ -276,5 +309,21 @@ class HotelAPIManager
         $checkAvailabilityAndPricesResponse = new CheckAvailabilityAndPricesResponse($object);
 
         return $checkAvailabilityAndPricesResponse;
+    }
+
+    /**
+     * @param BookHotelV3 $BookHotelV3
+     * @return BookHotelV3Response
+     * @throws Exception
+     */
+    public function BookHotelV3(BookHotelV3 $BookHotelV3) {
+        $object = $this->soapClient->__soapCall(
+            'BookHotelV3',
+            array($BookHotelV3->toArray())
+        );
+
+        $bookHotelV3Response = new BookHotelV3Response($object);
+
+        return $bookHotelV3Response;
     }
 }
