@@ -17,6 +17,7 @@ require_once('Request/ArrayOfFeature.php');
 require_once('Request/ArrayOfHotelID.php');
 require_once('Request/ArrayOfHotelIdInfo.php');
 require_once('Request/ArrayOfRoomInfo.php');
+require_once('Request/CheckAvailabilityAndPrices.php');
 require_once('Request/ChildAge.php');
 require_once('Request/DestinationIdInfo.php');
 require_once('Request/Feature.php');
@@ -53,6 +54,7 @@ require_once('Response/ArrayOfTax.php');
 require_once('Response/Availability.php');
 require_once('Response/Boardbase.php');
 require_once('Response/BookInfo.php');
+require_once('Response/CheckAvailabilityAndPricesResponse.php');
 require_once('Response/Description.php');
 require_once('Response/Descriptions.php');
 require_once('Response/DrivingDirections.php');
@@ -95,6 +97,7 @@ use HotelApi\Request\ArrayOfFeature;
 use HotelApi\Request\ArrayOfHotelID;
 use HotelApi\Request\ArrayOfHotelIdInfo;
 use HotelApi\Request\ArrayOfRoomInfo;
+use HotelApi\Request\CheckAvailabilityAndPrices;
 use HotelApi\Request\ChildAge;
 use HotelApi\Request\DestinationIdInfo;
 use HotelApi\Request\Feature;
@@ -126,6 +129,7 @@ use HotelApi\Response\ArrayOfTax;
 use HotelApi\Response\Availability;
 use HotelApi\Response\Boardbase;
 use HotelApi\Response\BookInfo;
+use HotelApi\Response\CheckAvailabilityAndPricesResponse;
 use HotelApi\Response\Description;
 use HotelApi\Response\Descriptions;
 use HotelApi\Response\DrivingDirections;
@@ -250,11 +254,27 @@ class HotelAPIManager
     public function GetHotelDetailsV3(GetHotelDetailsV3 $GetHotelDetailsV3) {
         $object = $this->soapClient->__soapCall(
             'GetHotelDetailsV3',
-            array('GetHotelDetailsV3' => $GetHotelDetailsV3->toArray())
+            array($GetHotelDetailsV3->toArray())
         );
 
         $getHotelDetailsV3Response = new GetHotelDetailsV3Response($object);
 
         return $getHotelDetailsV3Response;
+    }
+
+    /**
+     * @param CheckAvailabilityAndPrices $CheckAvailabilityAndPrices
+     * @return CheckAvailabilityAndPricesResponse
+     * @throws Exception
+     */
+    public function CheckAvailabilityAndPrices(CheckAvailabilityAndPrices $CheckAvailabilityAndPrices) {
+        $object = $this->soapClient->__soapCall(
+            'CheckAvailabilityAndPrices',
+            array($CheckAvailabilityAndPrices->toArray())
+        );
+
+        $checkAvailabilityAndPricesResponse = new CheckAvailabilityAndPricesResponse($object);
+
+        return $checkAvailabilityAndPricesResponse;
     }
 }
