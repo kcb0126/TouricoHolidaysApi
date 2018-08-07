@@ -15,7 +15,7 @@ use HotelApi\Response\Hotel;
 class SearchHotelsById extends BaseObject
 {
     /**
-     * @var SearchHotelsById
+     * @var SearchHotelsByIdRequest
      */
     public $request;
 

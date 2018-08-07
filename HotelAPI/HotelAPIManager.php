@@ -244,6 +244,7 @@ class HotelAPIManager
 
     /**
      * @param GetHotelDetailsV3 $GetHotelDetailsV3
+     * @return GetHotelDetailsV3Response
      * @throws Exception
      */
     public function GetHotelDetailsV3(GetHotelDetailsV3 $GetHotelDetailsV3) {
