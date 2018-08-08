@@ -38,9 +38,11 @@ require_once('Request/DestinationIdInfo.php');
 require_once('Request/DoAmend.php');
 require_once('Request/Feature.php');
 require_once('Request/GetHotelDetailsV3.php');
+require_once('Request/GetRGInfo.php');
 require_once('Request/HotelID.php');
 require_once('Request/HotelIdInfo.php');
 require_once('Request/ReservationType.php');
+require_once('Request/RGInfoRequest.php');
 require_once('Request/RoomInfo.php');
 require_once('Request/RoomReserveInfo.php');
 require_once('Request/SearchHotels.php');
@@ -100,6 +102,7 @@ require_once('Response/FormattedTextType.php');
 require_once('Response/FreeTextShortDescription.php');
 require_once('Response/GetHotelDetailsV3Response.php');
 require_once('Response/GetHotelDetailsV3Result.php');
+require_once('Response/GetRGInfoResponse.php');
 require_once('Response/Home.php');
 require_once('Response/Hotel.php');
 require_once('Response/Hotel_1.php');
@@ -148,6 +151,7 @@ use HotelApi\Request\CheckAvailabilityAndPrices;
 use HotelApi\Request\CostAmend;
 use HotelApi\Request\DoAmend;
 use HotelApi\Request\GetHotelDetailsV3;
+use HotelApi\Request\GetRGInfo;
 use HotelApi\Request\SearchHotels;
 use HotelApi\Request\SearchHotelsByDestinationIds;
 use HotelApi\Request\SearchHotelsById;
@@ -157,6 +161,7 @@ use HotelApi\Response\CheckAvailabilityAndPricesResponse;
 use HotelApi\Response\CostAmendResponse;
 use HotelApi\Response\DoAmendResponse;
 use HotelApi\Response\GetHotelDetailsV3Response;
+use HotelApi\Response\GetRGInfoResponse;
 use HotelApi\Response\SearchHotelsByDestinationIdsResponse;
 use HotelApi\Response\SearchHotelsByIdResponse;
 use HotelApi\Response\SearchHotelsResponse;
@@ -323,5 +328,21 @@ class HotelAPIManager
         $doAmendResponse = new DoAmendResponse($object);
 
         return $doAmendResponse;
+    }
+
+    /**
+     * @param GetRGInfo $GetRGInfo
+     * @return GetRGInfoResponse
+     * @throws Exception
+     */
+    public function GetRGInfo(GetRGInfo $GetRGInfo) {
+        $object = $this->soapClient->__soapCall(
+            'GetRGInfo',
+            array($GetRGInfo->toArray())
+        );
+
+        $getRGInfoResponse = new GetRGInfoResponse($object);
+
+        return $getRGInfoResponse;
     }
 }
