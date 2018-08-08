@@ -33,13 +33,13 @@ class SupplementInfo extends BaseObject
 
     /**
      * SupplementInfo constructor.
-     * @param ArrayOfSuppAges $SupAgeGroup
+     * @param ArrayOfSuppAges|null $SupAgeGroup
      * @param int $suppId
      * @param float $supTotalPrice
      * @param int $suppType
      */
     public function __construct(
-        ArrayOfSuppAges $SupAgeGroup
+        /*ArrayOfSuppAges*/ $SupAgeGroup
         , int $suppId
         , float $supTotalPrice
         , int $suppType

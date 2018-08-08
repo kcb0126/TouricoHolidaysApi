@@ -41,12 +41,13 @@ abstract class BaseArray
             }
 
             // check if each item is an instance of BaseObject
-            if(!($item instanceof BaseObject)) {
-                throw new Exception('The property ' . $main_array . ' of class '
-                    . get_class($this) . 'should contain array of instances of BaseObject.');
+            if($item instanceof BaseObject) {
+                $result[] = $item->toArray();
+            } else {
+                $result[] = $item;
+//                throw new Exception('The property ' . $main_array . ' of class '
+//                    . get_class($this) . ' should contain array of instances of BaseObject.');
             }
-
-            $result[] = $item->toArray();
         }
 
         return array($main_array => $result);
