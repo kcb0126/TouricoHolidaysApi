@@ -11,6 +11,7 @@ namespace HotelApi;
 require_once('Request/BaseObject.php');
 require_once('Request/BaseArray.php');
 
+require_once('Request/AmendRequest.php');
 require_once('Request/AmendRoomReserveInfo.php');
 require_once('Request/ArrayOfChildAge.php');
 require_once('Request/ArrayOfDestinationIdInfo.php');
@@ -24,6 +25,7 @@ require_once('Request/ArrayOfRoomReserveInfo.php');
 require_once('Request/ArrayOfSuppAges.php');
 require_once('Request/ArrayOfSupplementInfo.php');
 require_once('Request/BookHotelV3.php');
+require_once('Request/CciType.php');
 require_once('Request/BookV3Request.php');
 require_once('Request/CheckAvailabilityAndPrices.php');
 require_once('Request/ChildAge.php');
@@ -33,6 +35,7 @@ require_once('Request/CostAmend.php');
 require_once('Request/CostAmendRequest.php');
 require_once('Request/CyberSourceParams.php');
 require_once('Request/DestinationIdInfo.php');
+require_once('Request/DoAmend.php');
 require_once('Request/Feature.php');
 require_once('Request/GetHotelDetailsV3.php');
 require_once('Request/HotelID.php');
@@ -91,6 +94,7 @@ require_once('Response/ChildAge.php');
 require_once('Response/CostAmendResponse.php');
 require_once('Response/Description.php');
 require_once('Response/Descriptions.php');
+require_once('Response/DoAmendResponse.php');
 require_once('Response/DrivingDirections.php');
 require_once('Response/FormattedTextType.php');
 require_once('Response/FreeTextShortDescription.php');
@@ -142,6 +146,7 @@ use SoapHeader;
 use HotelApi\Request\BookHotelV3;
 use HotelApi\Request\CheckAvailabilityAndPrices;
 use HotelApi\Request\CostAmend;
+use HotelApi\Request\DoAmend;
 use HotelApi\Request\GetHotelDetailsV3;
 use HotelApi\Request\SearchHotels;
 use HotelApi\Request\SearchHotelsByDestinationIds;
@@ -150,6 +155,7 @@ use HotelApi\Request\SearchHotelsById;
 use HotelApi\Response\BookHotelV3Response;
 use HotelApi\Response\CheckAvailabilityAndPricesResponse;
 use HotelApi\Response\CostAmendResponse;
+use HotelApi\Response\DoAmendResponse;
 use HotelApi\Response\GetHotelDetailsV3Response;
 use HotelApi\Response\SearchHotelsByDestinationIdsResponse;
 use HotelApi\Response\SearchHotelsByIdResponse;
@@ -293,8 +299,6 @@ class HotelAPIManager
      * @throws Exception
      */
     public function CostAmend(CostAmend $CostAmend) {
-        $array = array($CostAmend->toArray());
-
         $object = $this->soapClient->__soapCall(
             'CostAmend',
             array($CostAmend->toArray())
@@ -303,5 +307,21 @@ class HotelAPIManager
         $costAmendResponse = new CostAmendResponse($object);
 
         return $costAmendResponse;
+    }
+
+    /**
+     * @param DoAmend $DoAmend
+     * @return DoAmendResponse
+     * @throws Exception
+     */
+    public function DoAmend(DoAmend $DoAmend) {
+        $object = $this->soapClient->__soapCall(
+            'DoAmend',
+            array($DoAmend->toArray())
+        );
+
+        $doAmendResponse = new DoAmendResponse($object);
+
+        return $doAmendResponse;
     }
 }
