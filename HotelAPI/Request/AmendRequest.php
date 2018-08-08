@@ -86,6 +86,24 @@ class AmendRequest extends BaseObject
      */
     public $PropertyType;
 
+    /**
+     * AmendRequest constructor.
+     * @param int $RecordLocatorId
+     * @param int $HotelId
+     * @param int $HotelRoomTypeId
+     * @param string $CheckIn
+     * @param string $CheckOut
+     * @param ArrayOfReservationType $SelectedReservations
+     * @param CciType|null $Cci
+     * @param float $AmendmentPrice
+     * @param string $AmendType
+     * @param float $DeltaPrice
+     * @param string $Currency
+     * @param string $AgentRefNumber
+     * @param bool $IsOnlyAvailable
+     * @param string $RgldRefNum
+     * @param string $PropertyType
+     */
     public function __construct(
         int $RecordLocatorId
         , int $HotelId
@@ -93,7 +111,7 @@ class AmendRequest extends BaseObject
         , string $CheckIn
         , string $CheckOut
         , ArrayOfReservationType $SelectedReservations
-        , CciType $Cci
+        , /*CciType*/ $Cci
         , float $AmendmentPrice
         , string $AmendType
         , float $DeltaPrice
